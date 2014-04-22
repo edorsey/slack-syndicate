@@ -35,6 +35,7 @@ exports.add_routes = function (app, io) {
 		if (req.body.text.indexOf('#') > -1) {
 			var re = /<(.*?)>/;
 			var channels = req.body.text.match(re);
+			hookData(channels);
 			res.json({
 				text : req.body.text,
 				channel: channels[1],
