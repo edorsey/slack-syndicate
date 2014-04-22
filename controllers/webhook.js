@@ -33,11 +33,11 @@ exports.add_routes = function (app, io) {
 		console.log(req);
 		incomingHook(req.body);
 		if (req.body.text.indexOf('#') > -1) {
-			var re = /(^|\W)(#[a-z\d][\w-]*)/ig;
+			var re = /<(.*?)>/;
 			var channels = req.body.text.match(re);
 			res.json({
 				text : req.body.text,
-				channel: channels[0],
+				channel: channels[1],
 				username: req.body.username,
 			});
 		}
