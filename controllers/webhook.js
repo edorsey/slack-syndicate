@@ -33,6 +33,7 @@ exports.add_routes = function (app, io) {
 
 	app.post('/webhook/slack', function(req, res) {
 		console.log(req);
+		incomingHook(req.body);
 		hookData(req.body.text.indexOf('#'));
 		if (req.body.text.indexOf('#') > -1) {
 			var re = /<(.*?)>/;
