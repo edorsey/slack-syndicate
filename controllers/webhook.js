@@ -24,6 +24,7 @@ exports.add_routes = function (app, io) {
 
 	var hookData = function(data) {
 		webhookData.data.push(data);
+		io.sockets.emit('webhook', webhookData);
 		return data;
 	}
 
@@ -31,7 +32,6 @@ exports.add_routes = function (app, io) {
 
 	app.post('/webhook/slack', function(req, res) {
 		console.log(req);
-		incomingHook(req.body);
 		if (req.body.text.indexOf('#') > -1) {
 			var re = /<(.*?)>/;
 			var channels = req.body.text.match(re);
@@ -42,6 +42,7 @@ exports.add_routes = function (app, io) {
 				username: req.body.username,
 			});
 		}
+		incomingHook(req.body);
 	});
 
 	app.get('/webhook/console', function(req, res) {
