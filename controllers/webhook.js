@@ -10,12 +10,10 @@ exports.add_routes = function (app, io) {
 			error : null,
 			data : [],
 		};
-		io.sockets.emit('webhook', webhookData);
 	}
 
 	var hookResponse = function(data) {
 		webhookData.res = data;
-		io.sockets.emit('webhook', webhookData);
 		return data;
 	}
 
@@ -25,7 +23,6 @@ exports.add_routes = function (app, io) {
 
 	var hookData = function(data) {
 		webhookData.data.push(data);
-		io.sockets.emit('webhook', webhookData);
 		return data;
 	}
 
@@ -46,6 +43,7 @@ exports.add_routes = function (app, io) {
 			hookData(channels);
 			hookResponse(json)
 			res.json(json);
+			io.sockets.emit('webhook', webhookData);
 		}
 	});
 
