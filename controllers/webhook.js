@@ -37,7 +37,7 @@ exports.add_routes = function (app, io) {
 			var channels = req.body.text.match(re);
 			var json = {
 				text : req.body.text,
-				channel: channels[1],
+				channel: '#tech',
 				username: req.body.username,
 			};
 			hookData(channels);
