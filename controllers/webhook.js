@@ -32,7 +32,15 @@ exports.add_routes = function (app, io) {
 	app.post('/webhook/slack', function(req, res) {
 		console.log(req);
 		incomingHook(req.body);
-		res.end();
+		if (req.body.text.indexOf('#') > -1) {
+			var re = /(^|\W)(#[a-z\d][\w-]*)/ig;
+			var channels = req.body.text.match(re);
+			res.json({
+				text : req.body.text,
+				channel: channels[0],
+				username: req.body.username,
+			});
+		}
 	});
 
 	app.get('/webhook/console', function(req, res) {
